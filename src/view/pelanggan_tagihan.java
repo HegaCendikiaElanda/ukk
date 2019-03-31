@@ -215,6 +215,7 @@ public class pelanggan_tagihan extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void PenggunaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PenggunaanActionPerformed

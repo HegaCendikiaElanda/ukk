@@ -6,10 +6,12 @@
 package view;
 
 import conection.koneksi;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -24,19 +26,16 @@ public class register extends javax.swing.JFrame {
     Connection con;
     Statement stat;
     ResultSet rs;
-    
+    ResultSetMetaData rsmd;
     
     public register() {
-        initComponents();
-         koneksi DB = new koneksi();
-         DB.config();
-         stat = DB.stm;
-         con = DB.con;
-         
-//        Toolkit tk = Toolkit.getDefaultToolkit();
-//        int xsize = (int) tk.getScreenSize().getWidth();
-//        int ysize = (int) tk.getScreenSize().getHeight();
-//        this.setSize(xsize,ysize);
+        
+        koneksi DB = new koneksi();
+        DB.config();
+        stat = DB.stm;
+        con = DB.con;
+        initComponents(); 
+
     }
 
     /**
@@ -56,11 +55,9 @@ public class register extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        password = new javax.swing.JTextField();
         register = new javax.swing.JButton();
         login_here = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
-        repassword = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -71,6 +68,8 @@ public class register extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         tarif = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
+        repassword = new javax.swing.JPasswordField();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EL-PAY");
@@ -127,8 +126,6 @@ public class register extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
         jLabel3.setText("Password");
 
-        password.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
-
         register.setFont(new java.awt.Font("Raavi", 0, 14)); // NOI18N
         register.setText("Daftar");
         register.setBorder(null);
@@ -169,8 +166,6 @@ public class register extends javax.swing.JFrame {
             }
         });
 
-        repassword.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
-
         jLabel5.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
         jLabel5.setText("Ulangi password");
 
@@ -193,10 +188,24 @@ public class register extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
         jLabel8.setText("Alamat");
 
-        tarif.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tarif.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
 
         jLabel9.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
         jLabel9.setText("Tarif");
+
+        repassword.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
+        repassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repasswordActionPerformed(evt);
+            }
+        });
+
+        password.setFont(new java.awt.Font("Raavi", 0, 12)); // NOI18N
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -217,15 +226,18 @@ public class register extends javax.swing.JFrame {
                                 .addGap(156, 156, 156))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(password, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(repassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                            .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(repassword)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(password, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -271,17 +283,17 @@ public class register extends javax.swing.JFrame {
                         .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(alamat))
+                    .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tarif)
-                    .addComponent(repassword))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tarif, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(repassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
@@ -323,10 +335,12 @@ public class register extends javax.swing.JFrame {
 
     private void login_hereMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_hereMouseEntered
         this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.setBackground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_login_hereMouseEntered
 
     private void login_hereMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_hereMouseExited
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        this.setBackground(Color.WHITE);
     }//GEN-LAST:event_login_hereMouseExited
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
@@ -340,21 +354,37 @@ public class register extends javax.swing.JFrame {
         
         try{
             if(Repassword.equals(Password)){
-                String sql = "INSERT INTO user VALUES ( NULL, '"+user+"', '"+Password+"', '"+nama+"', '"+1+"');";
-                String sql2 = "INSERT INTO pelanggan VALUES ( NULL, '"+user+"', '"+Password+"', '"+nama+"', '"+1+"');";
-                stat.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Berhasil Tolol");
-                this.setVisible(false);
-                pelanggan_tagihan pt = new pelanggan_tagihan();
-                pt.setVisible(true);
+                try{
+                    String seleksi = "SELECT * FROM user WHERE username =" + user;
+                    rs = stat.executeQuery(seleksi);
+                    if (rs.next()) {
+                        JOptionPane.showMessageDialog(null, "Username sudah ada");
+                    }
+                }catch(Exception ex){
+                    String sql = "INSERT INTO user VALUES ( NULL, '"+user+"', '"+Password+"', '"+nama+"', '"+Nokwh+"', '"+Alamat+"', '"+Trf+"', '"+1+"');";
+                    stat.executeUpdate(sql);
+                    JOptionPane.showMessageDialog(null, "Berhasil");
+                    System.out.println(ex.getMessage());
+                    this.setVisible(false);
+                    pelanggan_tagihan pt = new pelanggan_tagihan();
+                    pt.setVisible(true);
+                }
             }else{
-                JOptionPane.showMessageDialog(null, "Password harus sama");
+                JOptionPane.showMessageDialog(null, "Periksa kembali password yang dimasukan");
             }
             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_registerActionPerformed
+
+    private void repasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repasswordActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,9 +441,9 @@ public class register extends javax.swing.JFrame {
     private javax.swing.JLabel login_here;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nokwh;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     private javax.swing.JButton register;
-    private javax.swing.JTextField repassword;
+    private javax.swing.JPasswordField repassword;
     private javax.swing.JComboBox<String> tarif;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

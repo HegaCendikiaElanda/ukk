@@ -24,9 +24,9 @@ public class koneksi {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/db_listrik_ukk", "root" , "");
             stm = con.createStatement();
-            JOptionPane.showMessageDialog(null, "Koneksinya Bangus");
+            System.out.println("Connect");
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Koneksinya Kontol" +e.getMessage());
+            System.out.println("Disconnect");
             System.exit(0);
         }
     }

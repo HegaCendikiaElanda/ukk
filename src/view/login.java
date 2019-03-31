@@ -11,6 +11,7 @@ import conection.koneksi;
 import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +25,8 @@ public class login extends javax.swing.JFrame {
     Statement stat;
     Connection con;
     ResultSet rs;
+    ResultSetMetaData rsmd;
+    public static String userid;
     
     public login() {
         initComponents();
@@ -249,10 +252,19 @@ public class login extends javax.swing.JFrame {
             String sql = "SELECT * FROM user WHERE username='"+username.getText()+"' AND PASSWORD='"+password.getText()+"'";
             rs = stat.executeQuery(sql);
             if(rs.next()){
+                userid = rs.getString("id_user");
+                JOptionPane.showMessageDialog(this, userid);
                 if(username.getText().equals(rs.getString("username")) && password.getText().equals(rs.getString("password"))){
-                    this.setVisible(false);
+//                    String idsql = "SELECT id_user FROM user WHERE username=" + userid;
+//                    rs = stat.executeQuery(idsql);
+//                    if (rs.next()) {
+//                        rsmd = rs.getMetaData();
+//                        userid = rsmd.getColumnName(1);
+//                        JOptionPane.showMessageDialog(null, userid);
+//                    }
                     pelanggan_tagihan pt = new pelanggan_tagihan();
                     pt.setVisible(true);
+                    this.dispose();
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "Username atau password tidak terdaftar");
